@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        PikPak保存助手
-// @version     1.0.0
+// @version     1.0.1
 // @namespace   PikPak-expand
 // @icon        https://mypikpak.com/logo.png
 // @author      mumuchenchen
@@ -204,7 +204,7 @@
                 <div class="pikpak-alert-login" style="z-index: 6000; position: fixed; display: flex; align-items: center; flex-direction: column;top: 50%;left: 50%; text-align: center;  transform: translate(-50%, -50%);">
                     <div class="pikpak-alert-login-box" style="align-items: center;background-color: #fff;box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);color: rgb(51, 54, 57);padding: 20px;border-radius: 3px;">
                         <div class="" style="margin-bottom: 10px;">
-                            登陆
+                            登陆Pikpak账号
                         </div> 
                         <div class="">
                             <input type="text" style="line-height: 26px;padding: 4px; border: 1px solid #ddd; border-radius: 3px;  margin-bottom: 10px;  min-width: 200px; "  placeholder="用户名" name="username"></input>
