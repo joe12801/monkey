@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        PikPak保存助手
-// @version     1.0.1
+// @version     1.0.2
 // @namespace   PikPak-expand
 // @icon        https://mypikpak.com/logo.png
 // @author      mumuchenchen
@@ -48,7 +48,8 @@
             }
         })
         // 添加登录或登出菜单
-        const pikpakLogin = JSON.parse(GM_getValue('pikpakLoginInfo', '{}'))
+        let pikpakLogin = GM_getValue('pikpakLoginInfo', {});
+        pikpakLogin = typeof pikpakLogin === 'string' ? JSON.parse(pikpakLogin) : pikpakLogin;
         if(pikpakLogin.access_token && pikpakLogin.expires > new Date().getTime()) {
             GM_registerMenuCommand('登出',() => {
                 logout()
@@ -243,7 +244,7 @@
                     }).then(async res => {
                         const pikpakLogin = JSON.parse(res.responseText);
                         pikpakLogin.expires =  new Date().getTime() + pikpakLogin.expires_in * 1000;
-                        GM_setValue('pikpakLoginInfo', JSON.stringify(pikpakLogin));
+                        GM_setValue('pikpakLoginInfo', pikpakLogin);
                         GM_registerMenuCommand('登出',() => {
                             logout()
                         })
@@ -301,7 +302,8 @@
     */
     const refreshToken = () => {
         console.log('刷新token')
-        const pikpakLogin = JSON.parse(GM_getValue('pikpakLoginInfo', '{}'));
+        let pikpakLogin = GM_getValue('pikpakLoginInfo', {});
+        pikpakLogin = typeof pikpakLogin === 'string' ? JSON.parse(pikpakLogin) : pikpakLogin;
         if(!pikpakLogin.refresh_token) {
             return false;
         }
@@ -324,7 +326,7 @@
                     pikpakLogin.access_token = data.access_token;
                     pikpakLogin.refresh_token = data.refresh_token;
                     pikpakLogin.expires =  new Date().getTime() + data.expires_in * 1000;
-                    GM_setValue('pikpakLoginInfo', JSON.stringify(pikpakLogin));
+                    GM_setValue('pikpakLoginInfo', pikpakLogin);
                 }
             }
         })
@@ -388,7 +390,8 @@
         if(params) {
             url = url + (url.indexOf('?') === -1 ? '?' : '&') + Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&')
         }
-        const pikpakLogin = JSON.parse(GM_getValue('pikpakLoginInfo', '{}'))
+        let pikpakLogin = GM_getValue('pikpakLoginInfo', {});
+        pikpakLogin = typeof pikpakLogin === 'string' ? JSON.parse(pikpakLogin) : pikpakLogin;
         if((!pikpakLogin.access_token || pikpakLogin.expires < new Date().getTime()) && url.indexOf('v1/auth/signin') === -1) {
             return login({url, method, data, params})
         }
